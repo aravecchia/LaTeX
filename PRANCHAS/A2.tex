@@ -1,0 +1,170 @@
+\documentclass{article}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}   % necessário se estiver usando caracteres acentuados diretamente
+\usepackage[T1]{fontenc}      % codificação de fonte correta para PT-BR
+
+\usepackage{tikz} % Pacote para desenhos gráficos vetoriais
+\usepackage[paperwidth=594mm, paperheight=420mm, margin=0mm]{geometry} % Define o tamanho da folha (A2) e sem margens
+\usepackage{graphicx} % Permite inclusão de imagens
+\usepackage[default]{opensans} % Define a fonte como Open Sans
+\usepackage{lipsum} % Gera texto de exemplo (Lorem Ipsum)
+\usepackage{lastpage} % Permite referenciar o número da última página
+
+\pagestyle{empty} % Remove cabeçalhos e rodapés padrão
+
+% === Campos preenchíveis ===
+\newcommand{\Projeto}{001/2025} % Número do projeto
+\newcommand{\Escala}{1:100} % Escala do desenho
+\newcommand{\Data}{\today} % Data do projeto
+\newcommand{\Folha}{\thepage{}/\pageref{LastPage} % Página atual / total
+}
+\newcommand{\Revisao}{A} % Revisão do projeto
+\newcommand{\Titulo}{TÍTULO DO PROJETO} % Título técnico
+\newcommand{\Responsavel}{Responsável Técnico:} % Responsável técnico
+\newcommand{\CREA}{CREA n\textordmasculine:} % Número do CREA
+\newcommand{\Rua}{Rua...} % Rua do projeto
+\newcommand{\Bairro}{Bairro:} % Bairro
+\newcommand{\Cidade}{Cidade - SP} % Cidade
+\newcommand{\Cliente}{Nome do cliente} % Nome do cliente
+
+\begin{document}
+	\foreach \i in {1,...,10} { % Itera de 1 até 10 para gerar múltiplas páginas
+		\begin{tikzpicture}[remember picture, overlay, x=1mm, y=1mm]
+			
+			% === Moldura externa ===
+			\draw[line width=1mm]
+			([shift={(25,10)}]current page.south west) rectangle
+			([shift={(-10,-10)}]current page.north east);
+			
+			% === Linhas de dobra verticais ===
+			\foreach \dx in {210, 420, 590} {
+				\draw[line width=1mm]
+				([xshift=-\dx mm, yshift=10mm]current page.south east) --
+				([xshift=-\dx mm, yshift=0mm]current page.south east);
+				\draw[line width=1mm]
+				([xshift=-\dx mm, yshift=-10mm]current page.north east) --
+				([xshift=-\dx mm, yshift=0mm]current page.north east);
+			}
+			
+			% === Linhas de dobra horizontais ===
+			\foreach \y in {297, 420} {
+				\draw[line width=1mm]
+				([xshift=-10mm, yshift=\y mm]current page.south east) --
+				([xshift=0mm, yshift=\y mm]current page.south east);
+				\draw[line width=1mm]
+				([xshift=25mm, yshift=\y mm]current page.south west) --
+				([xshift=0mm, yshift=\y mm]current page.south west);
+			}
+			
+			% === Selo externo: 195x282 mm no canto inferior direito ===
+			\begin{scope}[shift={([xshift=-210mm, yshift=10mm]current page.south east)}]
+				\draw[line width=1mm] (0,0) rectangle (200,287); % Moldura do selo
+				
+				% === Selo interno ===
+				\begin{scope}[shift={(5,5)}]
+					\draw[line width=1mm] (0,0) rectangle (190,277); % Área interna do selo
+					
+					% === Título técnico ===
+					\node[anchor=west, font=\bfseries\LARGE] at (5,265) {\Titulo};
+					\node[anchor=west, font=\Large] at (5,255) {\Responsavel};
+					\node[anchor=west, font=\large] at (5,245) {\CREA};
+					
+					% === Endereço e logotipo institucional (ajustado) ===
+					\draw[line width= 1mm] (0,190) rectangle (190,235); % Caixa geral
+					\draw[line width= 1mm](126.67,190) -- (126.67,235); % Divisão 1/3 e 2/3
+					
+					% Textos à esquerda (2/3)
+					\node[anchor=west, font=\bfseries\Large] at (5,227.5) {Endereço:};
+					\node[anchor=west, font=\Large] at (5,217.5) {\Rua};
+					\node[anchor=west, font=\Large] at (5,210) {\Bairro};
+					\node[anchor=west, font=\Large] at (5,202.5) {\Cidade};
+					\node[anchor=west, font=\bfseries\large] at (5,195) {ÁREA: XXX,XX m\texttwosuperior};
+					
+					% Logotipo à direita (1/3)
+					\node at (160,215) {\includegraphics[width=48mm]{./IMG/aravecchia3d.png}};
+					\node[anchor=west, font=\large] at (140,197) {Design Industrial};
+					
+					% === Responsáveis (dividido em 3 partes) ===
+					\draw[line width= 0.35mm](0,175) -- (190,175); % Linha horizontal separadora
+					\node[font=\bfseries\normalsize] at (33,180) {Gerente do Projeto};
+					\node[font=\bfseries\normalsize] at (95,180) {Autor do Projeto / Resp. Técnico};
+					\node[font=\bfseries\normalsize] at (155,180) {Co-autor};
+					
+					\draw[line width=1mm] (0,190) rectangle (190,155); % Caixa dos nomes
+					
+					\foreach \x in {63.63, 126.67} { % Linhas verticais para divisão
+						\draw [line width= 1mm](\x,190) -- (\x,155);
+					}
+					\node[font=\normalsize] at (33,170) {ENG. XXXXXX};
+					\node[font=\normalsize] at (33,165) {CREA N\textordmasculine};
+					
+					\node[font=\normalsize] at (95,170) {ENG.XXXXXX};
+					\node[font=\normalsize] at (95,165) {CREA N\textordmasculine};
+					
+					\node[font=\normalsize] at (155,170) {Fulano de tal};
+					
+					% === Especificações Técnicas ===
+					\node[anchor=west, font=\bfseries\Large] at (5,147.5) {Proprietário:};
+					\draw[line width= 1mm] (0,135) rectangle (190,155); % Caixa geral			
+					\node[anchor=west, font=\Large] at (10,140) {\Cliente};
+					
+					\node[anchor=west, font=\bfseries\Large] at (5,127.5) {Especificações Técnicas:};
+					
+					% === Localização ===
+					\node[anchor=west, font=\bfseries\normalsize] at (130,129) {LOCALIZAÇÃO:};
+					
+					\draw[line width= 1mm](126.67,70) -- (126.67,135); % Linha vertical direita
+					
+					\draw[line width= 0.35mm](126.67,125) -- (190,125); % Linha horizontal separadora
+					
+					\draw[line width=1mm] (0,30) rectangle (190,70); % Caixa observações
+					\node[anchor=west, font=\bfseries\normalsize] at (5,62.5) {OBSERVAÇÕES:};
+					\node[anchor=west] at (10,45) {
+						\begin{minipage}[t]{120mm} % Caixa de texto
+							\small
+							Distribuido sob Licença Creative Commons Não Comercial. Copie, modifique, distribua e divulgue a vontade. Só não esqueça de citar os créditos do autor.
+							\\
+							\textbf{Instruções}:
+							
+							Edite o selo como desejar, no seu editor \LaTeX\space preferido. Gere o pdf, converta-o para SGV (use \textit{pdf2svg} se você está em Linux) e exporte-o para a pasta de folhas da bancada Techdraw, no FreeCAD, e divirta-se!
+						\end{minipage}
+					};
+					
+					\node at (30,110) {\includegraphics[width=40mm]{./IMG/freecad.png}}; % Logotipo FreeCAD
+					
+					\node[anchor=west, font=\Huge] at (60,108) {\LaTeX}; % Texto LaTeX
+					
+					\node at (105,110) {\includegraphics[width=15mm]{./IMG/tux.png}}; % Logotipo Linux
+					
+					\node at (162.5,50)
+					{\includegraphics[width=40mm]{./IMG/BY-NC.png}};
+					
+					% === Faixa inferior com colunas preenchíveis ===
+					\draw[line width=1mm] (0,0) rectangle (190,30); % Caixa inferior
+					\draw [line width= 0.35mm](0,20) -- (190,20); % Linha horizontal separadora
+					
+					\foreach \x in {40, 80, 120, 160} { % Linhas verticais divisoras
+						\draw[line width=1mm] (\x,0) -- (\x,30);
+					}
+					
+					\node[font=\bfseries\footnotesize] at (20,25)  {PROJETO};
+					\node[font=\bfseries\footnotesize] at (60,25)  {ESCALA};
+					\node[font=\bfseries\footnotesize] at (100,25) {DATA};
+					\node[font=\bfseries\footnotesize] at (140,25) {FOLHA};
+					\node[font=\bfseries\footnotesize] at (175,25) {REV.:};
+					
+					\node[font=\bfseries\Large] at (20,10)  {\Projeto};
+					\node[font=\bfseries\Huge] at (60,10)  {\Escala};
+					\node[font=\bfseries\normalsize] at (100,10) {\Data};
+					\node[font=\bfseries\Huge] at (140,10) {\Folha};
+					\node[font=\bfseries\Large] at (175,10) {\Revisao};
+				\end{scope}
+			\end{scope}
+			
+		\end{tikzpicture}
+		
+		\vfill\null % Preenche o espaço restante antes de quebrar página
+		\pagebreak % Quebra de página para a próxima iteração
+	}
+\end{document}

@@ -1,0 +1,56 @@
+\documentclass[final]{beamer}
+\usepackage[size=a0,scale=1.0]{beamerposter} % A0 paisagem
+\usepackage{tikz}
+\setbeamertemplate{navigation symbols}{}
+
+\begin{document}
+	\begin{frame}[t]
+		
+		% === Moldura externa e selo ===
+		\begin{tikzpicture}[remember picture, overlay]
+			
+			% Moldura com 1 cm de margem
+			\draw[line width=5pt]
+			([shift={(1cm,-1cm)}]current page.north west)
+			rectangle
+			([shift={(-1cm,1cm)}]current page.south east);
+			
+			% Selo A4 (210 x 297 mm), no canto inferior direito
+			\draw[line width=0.8pt]
+			([shift={(-1cm,1cm)}]current page.south east)
+			rectangle ++(-210mm,297mm);
+			
+		\end{tikzpicture}
+		
+		% === Conteúdo interno do selo ===
+		\begin{tikzpicture}[remember picture, overlay, x=1mm, y=1mm]
+			% Origem posicionada no canto inferior direito, recuando 1cm + 210mm para esquerda
+			\begin{scope}[shift={(1189-10-210,10)}]  % 1189mm = largura da folha A0
+				
+				% Referência externa do selo (210 x 297 mm)
+				\draw[gray!50] (0,0) rectangle (210,297);
+				
+				% Faixas horizontais internas
+				\draw (0,0) rectangle (210,30);    % Faixa inferior
+				\draw (0,30) rectangle (210,60);   % Faixa de título
+				\draw (0,60) rectangle (210,90);   % Faixa auxiliar
+				
+				% Divisões verticais na faixa inferior
+				\draw (50,0) -- (50,30);
+				\draw (100,0) -- (100,30);
+				\draw (150,0) -- (150,30);
+				
+				% Rótulos
+				\node[anchor=west, font=\tiny] at (2,5) {Projeto};
+				\node[anchor=west, font=\tiny] at (52,5) {Escala};
+				\node[anchor=west, font=\tiny] at (102,5) {Data};
+				\node[anchor=west, font=\tiny] at (152,5) {Folha};
+				
+				% Título do desenho
+				\node[anchor=west, font=\bfseries\large] at (5,40) {TÍTULO DO DESENHO TÉCNICO};
+				
+			\end{scope}
+		\end{tikzpicture}
+		
+	\end{frame}
+\end{document}
