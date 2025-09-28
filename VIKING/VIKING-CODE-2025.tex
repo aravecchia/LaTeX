@@ -1,0 +1,169 @@
+%        ,
+%    ,   |\ ,__
+%    |\   \/   `.
+%    \ `-.:.     `\
+%     `-.__ `\=====|
+%        /=`'/   ^_\
+%      .'   /\   .=)
+%   .-'  .'|  '-(/_|
+% .'  __(  \  .'`
+%/_.'`  `.  |`
+%    jgs  \ |
+%          |/
+% PREAMBULO VIKING
+
+\documentclass[10pt]{article} % Classe base artigo em 10pt
+
+%%%%% Configuração da página %%%%%
+\usepackage[landscape, top=5mm, left=10mm, right=10mm, bottom=0mm, paperwidth=180mm,
+paperheight=320mm]{geometry} % Define margens e dimensões da página
+
+%%%%% Suporte de idioma e codificação %%%%%
+\usepackage[utf8]{inputenc} % Codificação UTF-8
+\usepackage[brazil]{babel} % Idioma PT-BR
+
+%%%%% Matemática %%%%%
+\usepackage{amsmath,amssymb} % Símbolos e ambientes matemáticos
+
+%%%%% Tipografia e fontes %%%%%
+\usepackage[default,scale=0.9]{opensans} % Fonte OpenSans
+\usepackage{lmodern} % Fonte Latin Modern (fallback)
+
+%%%%% Cores e gráficos %%%%%
+\usepackage[svgnames]{xcolor} % Definição de cores
+\usepackage{tikz} % Gráficos vetoriais (já importa graphicx e calc)
+\usetikzlibrary{shapes,arrows.meta,positioning} % Bibliotecas TikZ extras
+
+%%%%% Layout em colunas e caixas %%%%%
+\usepackage{multicol} % Layout em múltiplas colunas
+\usepackage[most]{tcolorbox} % Caixas coloridas
+
+%%%%% Cabeçalho e rodapé %%%%%
+\usepackage{fancyhdr} % Personalização cabeçalho e rodapé
+\pagestyle{fancy}
+
+% Linhas no cabeçalho e rodapé
+\renewcommand{\headrule}{\color{black}\hrule height 1pt \vspace{-.2\baselineskip}} % Linha no cabeçalho
+\renewcommand{\footrule}{\color{black}\hrule height 1pt \vspace{-.1\baselineskip}} % Linha no rodapé
+
+% Cabeçalho/rodapé customizados
+\newcommand{\linksumario}{\hyperlink{sumario}{\includegraphics[height=4mm]{./IMG/tux.png}}} % Ícone p/ sumário
+\fancyhead[C]{\linksumario} % Cabeçalho centro
+\fancyhead[L]{\color{black}G/M-CODE} % Cabeçalho esquerda
+\fancyhead[R]{\color{black}Aravecchia 3D} % Cabeçalho direita
+\fancyfoot[C]{\large\color{black}\vspace*{-4mm}\LaTeX} % Rodapé centro
+\fancyfoot[R]{\color{black}\vspace*{-4mm}\thepage} % Número da página
+\renewcommand{\headrulewidth}{1pt} % Espessura linha cabeçalho
+\renewcommand{\footrulewidth}{1pt} % Espessura linha rodapé
+
+%%%%% Ajustes de layout %%%%%
+\setlength{\headsep}{5mm} % Distância cabeçalho-texto
+\setlength{\headheight}{7.5mm} % Altura cabeçalho
+\setlength{\footskip}{-5mm} % Distância rodapé-texto
+\setlength{\textheight}{157mm} % Altura útil do texto
+\setlength{\topmargin}{-27mm} % Margem superior
+\setlength{\columnsep}{10mm} % Espaço entre colunas
+\setlength{\parskip}{1mm plus 5mm} % Espaçamento entre parágrafos
+\linespread{1.25} % Espaçamento entre linhas
+
+%%%%% Bibliografia %%%%%
+\usepackage[num]{abntex2cite} % Citações ABNT
+\usepackage{babelbib} % Tradução de termos bibliográficos
+
+%%%%% Links e metadados %%%%%
+\usepackage{hyperref} % Links clicáveis
+\definecolor{linkblue}{rgb}{0,0,0.7} % Azul customizado
+\hypersetup{
+	colorlinks=true,
+	linkcolor=linkblue,
+	filecolor=linkblue,
+	urlcolor=linkblue,
+	citecolor=linkblue,
+	pdfborder={0 0 0},
+	pdftitle={Sistema de Automação Agroindustrial}
+}
+
+%%%%% Utilitários extras %%%%%
+\usepackage{csvsimple} % Importação CSV
+\usepackage{expl3} % Programação em LaTeX3
+\usepackage{pgffor} % Laços (TikZ)
+\usepackage{xfp} % Cálculos com \fpeval
+\usepackage{wasysym} % Símbolos adicionais
+\usepackage{wallpaper} % Imagem de fundo
+\usepackage{media9} % Inclusão de mídia
+\usepackage{listings} % Código fonte
+\usepackage{soul} % Destaque em texto
+\usepackage{fontawesome} % Ícones FontAwesome
+\usepackage{float} % Controle posição de figuras
+\usepackage{pdfpages} % Inserção de PDFs
+\usepackage{lipsum} % Texto fictício
+\usepackage{enumitem} % Listas customizadas
+\usepackage{caption} % Estilo de legendas
+
+%%%%% Tabelas %%%%%
+\usepackage{tabularx} % Tabelas largura variável
+\usepackage{supertabular} % Tabularx em multicols
+\usepackage{longtable} % Tabelas em várias páginas
+\usepackage{array} % Colunas customizadas
+
+%%%%% Listas com ícones %%%%%
+\renewcommand{\labelitemi}{\faChevronCircleRight} % Nível 1
+\renewcommand{\labelitemii}{\faArrowRight} % Nível 2
+\renewcommand{\labelitemiii}{$\diamond$} % Nível 3
+\renewcommand{\labelitemiv}{$\ast$} % Nível 4
+
+%%%%% Inclusão de configs externas %%%%%
+\input{./TeX/CODE/ARDUINO-CODE.tex} % Config Arduino
+\input{./TeX/CODE/PYTHON-CODE.tex} % Config Python
+\input{./TeX/CODE/SHELL-CODE.tex} % Config Shell
+\input{./TeX/CODE/LATEX-CODE.tex} % Config LaTeX
+
+%%%%% Título e autor %%%%%
+\date{\small\textcolor{white}\today} % Data no título
+\title{
+	\huge{
+		\vspace*{-15mm}
+		\resizebox{120mm}{16mm}{\color{black}{\textbf{Python}}} % Título estilizado
+	}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INÍCIO DO DOCUMENTO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+	\color{black} % Cor padrão do texto
+	\pagecolor{white} % Fundo branco
+	\maketitle % Gera o título
+	
+	\vspace{-25mm} % Ajuste de espaço após título
+	
+	\begin{center}
+		\resizebox{120mm}{5mm}{\color{black}{CHEATSHEET}} % Subtítulo
+		
+		\vspace{10mm}
+		\includegraphics[width=50mm]{./IMG/python.png} % Logo Python
+		
+		\vspace{10mm}
+		\includegraphics[width=50mm]{./IMG/Aravecchia3D.png} % Logo autor
+		
+		\date{\small\textcolor{black}\today} % Data (redundante, mas não atrapalha)
+	\end{center}
+	
+	\vfil\null\pagebreak % Força quebra de página
+	
+	\normalsize % Texto volta ao normal
+	
+	% Sumário (opcional, pode ativar se precisar)
+	% \tableofcontents
+	% \vfill
+	% \pagebreak
+	
+	% Conteúdo principal em colunas
+	\begin{multicols}{2}
+		\input{./CAPITULOS.tex} % Capítulos externos
+	\end{multicols}
+	
+	% Bibliografia (opcional, ativar se usar refs)
+	% \bibliography{suas-referencias.bib}
+	
+\end{document} % Fim do documento
